@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block page_body %}
+  <div class="row">
+    <div class="col-12">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="url" name="url" class="form-control form-control-lg" placeholder="Enter link">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-12">
+      {% for link in link_list %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="card-title text-truncate">{{ link.title }}</h2>
+            <h5 class="small">{{ link.keywords|default_if_none:'' }}</h5>
+
+            <p class="text-justify">
+              {{ link.description|default_if_none:'' }}
+            </p>
+
+            <div class="text-truncate">
+              <a href="{{ link.url }}" class="card-link">{{ link.url }}</a>
+            </div>
+          </div>
+
+          <div class="card-footer text-muted">
+            <div class="float-right">
+              <a href="{% url 'links:link_update' link.pk %}" class="btn btn-primary btn-sm"
+                 style="margin-top: -10px; margin-bottom: -5px">Update</a>
+              <a href="{% url 'links:link_delete' link.pk %}" class="btn btn-danger btn-sm"
+                 style="margin-top: -10px; margin-bottom: -5px">Delete</a>
+            </div>
+
+            {{ link.create_date }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

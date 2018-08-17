@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block page_body %}
+  <form action="" method="post">
+  {% csrf_token %}
+    <div class="card">
+      <div class="card-body">
+        Are you sure you want to delete the link:
+
+        <p>
+          <a href="{{ link.url }}" class="card-link">{{ link.url }}</a>
+        </p>
+
+        <div>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}
